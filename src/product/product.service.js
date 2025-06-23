@@ -8,55 +8,65 @@ const {
   findProductByName,
   insertProduct,
   editProduct,
-  deleteProduct
-} = require("./product.repository")
+  deleteProduct,
+  findProductByKeywoard,
+} = require("./product.repository");
 
 const getAllProduct = async () => {
-  const products = await findProduct()
+  const products = await findProduct();
 
-  return products
-}
+  return products;
+};
 
 const getProductById = async (id) => {
   const product = await findProductById(id);
 
-  if(!product) {
-    throw Error("Product not found!")
+  if (!product) {
+    throw Error("Product not found!");
   }
 
-  return product
-}
+  return product;
+};
+
+const searchProducts = async (query) => {
+  if (!query || typeof query !== "string") return [];
+
+  const results = await findProductByKeywoard(query.toLowerCase());
+
+  return results;
+};
 
 const createProduct = async (newProductData) => {
-  const findProduct = await findProductByName(newProductData.name)
+  const findProduct = await findProductByName(newProductData.name);
 
-  if(findProduct) {
-    throw Error("name has to be unique!")
+  if (findProduct) {
+    throw Error("name has to be unique!");
   }
 
-  const product = await insertProduct(newProductData)
+  const product = await insertProduct(newProductData);
 
-  return product
-}
+  return product;
+};
 
 const updateProductById = async (id, productData) => {
-  await getProductById(id)
+  await getProductById(id);
 
-  const product = await editProduct(id, productData)
+  const product = await editProduct(id, productData);
 
-  return product
-}
+  return product;
+};
 
 const deleteProductById = async (id) => {
-  await getProductById(id)
+  await getProductById(id);
 
-  await deleteProduct(id)
-}
+  await deleteProduct(id);
+};
 
 module.exports = {
   getAllProduct,
   getProductById,
+  searchProducts,
   createProduct,
   updateProductById,
-  deleteProductById
-}
+  deleteProductById,
+};

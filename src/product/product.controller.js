@@ -5,6 +5,8 @@ const {
   createProduct,
   updateProductById,
   deleteProductById,
+  getProductSuggestions,
+  searchProducts,
 } = require("./product.service");
 
 const router = express.Router();
@@ -13,6 +15,20 @@ router.get("/", async (req, res) => {
   const products = await getAllProduct();
 
   res.send(products);
+});
+
+// SEARCH PRODUCT by query disimpan sebelum /:id agar tidak error
+router.get("/search", async (req, res) => {
+  try {
+    const q = req.query.q;
+    if (!q) return res.status(400).send("Query kosong");
+
+    const results = await searchProducts(q);
+
+    res.send(results);
+  } catch (err) {
+    res.status(500).send("Search Error:" + err.message);
+  }
 });
 
 router.get("/:id", async (req, res) => {
@@ -86,13 +102,13 @@ router.delete("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
-    await deleteProductById(id)
+    await deleteProductById(id);
 
     res.send({
-      message: "product deleted!"
-    })
+      message: "product deleted!",
+    });
   } catch (err) {
-    res.status(400).send(err.message)
+    res.status(400).send(err.message);
   }
 });
 

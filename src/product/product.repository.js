@@ -1,7 +1,7 @@
 const prisma = require("../db/index");
 
 const findProduct = async () => {
-  const products = await prisma.product.findMany()
+  const products = await prisma.product.findMany();
 
   return products;
 };
@@ -24,6 +24,20 @@ const findProductByName = async (name) => {
   });
 
   return product;
+};
+
+const findProductByKeywoard = async (query) => {
+  const products = prisma.product.findMany({
+    where: {
+      name: {
+        contains: query,
+        mode: "insensitive",
+      },
+    },
+    take: 10
+  });
+
+  return products
 };
 
 const insertProduct = async (productData) => {
@@ -62,14 +76,15 @@ const deleteProduct = async (id) => {
     },
   });
 
-  return product
+  return product;
 };
 
 module.exports = {
   findProduct,
   findProductById,
   findProductByName,
+  findProductByKeywoard,
   insertProduct,
   editProduct,
-  deleteProduct
+  deleteProduct,
 };
