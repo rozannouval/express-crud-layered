@@ -23,7 +23,7 @@ const registerUser = async ({ name, email, password, image, alamat }) => {
     },
   });
 
-  return user
+  return user;
 };
 
 const loginUser = async ({ email, password }) => {
