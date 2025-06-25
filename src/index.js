@@ -20,6 +20,9 @@ app.use("/banners", bannerController);
 app.use("/users", userController);
 app.use("/auth", authController);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to backend nexshop")
+})
 
 app.listen(PORT, () => {
   console.log(`express berjalan di http://localhost:${PORT}`);
