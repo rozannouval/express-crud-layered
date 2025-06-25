@@ -11,7 +11,7 @@ const authController = require("./modules/auth/auth.controller")
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT;
+// const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
@@ -24,6 +24,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to backend nexshop")
 })
 
-app.listen(PORT, () => {
-  console.log(`express berjalan di http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`express berjalan di http://localhost:${PORT}`);
+// });
