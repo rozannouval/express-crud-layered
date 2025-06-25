@@ -1,20 +1,19 @@
 const express = require("express");
 const {
-  getAllProduct,
-  getProductById,
-  createProduct,
-  updateProductById,
-  deleteProductById,
-  getProductSuggestions,
-  searchProducts,
-} = require("./product.service");
+  getAllUser,
+  getUserById,
+  createUser,
+  updateUserById,
+  deleteUserById,
+  searchUsers,
+} = require("./user.service");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const products = await getAllProduct();
+  const users = await getAllUser();
 
-  res.send(products);
+  res.send(users);
 });
 
 // SEARCH PRODUCT by query disimpan sebelum /:id agar tidak error
@@ -23,7 +22,7 @@ router.get("/search", async (req, res) => {
     const q = req.query.q;
     if (!q) return res.status(400).send("Query kosong");
 
-    const results = await searchProducts(q);
+    const results = await searchUsers(q);
 
     res.send(results);
   } catch (err) {
@@ -34,8 +33,8 @@ router.get("/search", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const product = await getProductById(id);
-    res.send(product);
+    const user = await getUserById(id);
+    res.send(user);
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -43,12 +42,12 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const newProductData = req.body;
-    const product = await createProduct(newProductData);
+    const newUserData = req.body;
+    const user = await createUser(newUserData);
 
     res.send({
-      data: product,
-      message: "product created!",
+      data: user,
+      message: "user created!",
     });
   } catch (err) {
     res.status(400).send(err.message);
@@ -58,24 +57,24 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const productData = req.body;
+    const userData = req.body;
 
     if (
       !(
-        productData.name &&
-        productData.description &&
-        productData.price &&
-        productData.image
+        userData.name &&
+        userData.description &&
+        userData.price &&
+        userData.image
       )
     ) {
       return res.status(400).send({ error: "Some fields are missing" });
     }
 
-    const product = await updateProductById(id, productData);
+    const user = await updateUserById(id, userData);
 
     res.send({
-      data: product,
-      message: "product updated!",
+      data: user,
+      message: "user updated!",
     });
   } catch (err) {
     res.status(400).send(err.message);
@@ -85,13 +84,13 @@ router.put("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    const productData = req.body;
+    const userData = req.body;
 
-    const product = await updateProductById(id, productData);
+    const user = await updateUserById(id, userData);
 
     res.send({
-      data: product,
-      message: "product updated!",
+      data: user,
+      message: "user updated!",
     });
   } catch (err) {
     res.status(400).send(err.message);
@@ -102,7 +101,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
-    await deleteProductById(id);
+    await deleteUserById(id);
 
     res.send({
       message: "product deleted!",

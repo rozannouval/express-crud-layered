@@ -3,7 +3,7 @@
 // Supaya apa? supaya kalo mau ganti2 ORM tinggal edit di file ini aja
 
 const {
-  findProduct,
+  findProducts,
   findProductById,
   findProductByName,
   insertProduct,
@@ -13,7 +13,7 @@ const {
 } = require("./product.repository");
 
 const getAllProduct = async () => {
-  const products = await findProduct();
+  const products = await findProducts();
 
   return products;
 };

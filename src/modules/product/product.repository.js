@@ -1,6 +1,6 @@
-const prisma = require("../db/index");
+const prisma = require("../../db/index");
 
-const findProduct = async () => {
+const findProducts = async () => {
   const products = await prisma.product.findMany();
 
   return products;
@@ -80,7 +80,7 @@ const deleteProduct = async (id) => {
 };
 
 module.exports = {
-  findProduct,
+  findProducts,
   findProductById,
   findProductByName,
   findProductByKeywoard,
