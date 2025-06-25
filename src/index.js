@@ -4,10 +4,10 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 
 // FILE IMPORT
-const productController = require("./src/modules/product/product.controller");
-const bannerController = require("./src/modules/banner/banner.controller")
-const userController = require("./src/modules/user/user.controller")
-const authController = require("./src/modules/auth/auth.controller")
+const productController = require("./modules/product/product.controller");
+const bannerController = require("./modules/banner/banner.controller")
+const userController = require("./modules/user/user.controller")
+const authController = require("./modules/auth/auth.controller")
 
 dotenv.config();
 const app = express();
