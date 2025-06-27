@@ -6,6 +6,7 @@ const {
   updateProductById,
   deleteProductById,
   searchProducts,
+  getProductByCategory,
 } = require("./product.service");
 
 const router = express.Router();
@@ -35,6 +36,17 @@ router.get("/:id", async (req, res) => {
     const id = parseInt(req.params.id);
     const product = await getProductById(id);
     res.send(product);
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+});
+
+router.get("/category/:category", async (req, res) => {
+  try {
+    const categoryName = req.params.category;
+    
+    const products = await getProductByCategory(categoryName);
+    res.send(products);
   } catch (err) {
     res.status(400).send(err.message);
   }

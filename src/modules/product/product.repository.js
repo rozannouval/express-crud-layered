@@ -1,3 +1,4 @@
+const { Category } = require("../../../generated/prisma");
 const prisma = require("../../db/index");
 
 const findProducts = async () => {
@@ -34,10 +35,24 @@ const findProductByKeywoard = async (query) => {
         mode: "insensitive",
       },
     },
-    take: 10
+    take: 10,
   });
 
-  return products
+  return products;
+};
+
+const findProductByCategory = async (categoryName) => {
+  if (!categoryName) {
+    throw new Error("Kategori tidak boleh kosong.");
+  }
+
+  const products = await prisma.product.findMany({
+    where: {
+      category: categoryName, // Prisma otomatis convert ke enum
+    },
+  });
+
+  return products;
 };
 
 const insertProduct = async (productData) => {
@@ -84,6 +99,7 @@ module.exports = {
   findProductById,
   findProductByName,
   findProductByKeywoard,
+  findProductByCategory,
   insertProduct,
   editProduct,
   deleteProduct,

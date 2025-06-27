@@ -6,10 +6,11 @@ const {
   findProducts,
   findProductById,
   findProductByName,
+  findProductByKeywoard,
+  findProductByCategory,
   insertProduct,
   editProduct,
   deleteProduct,
-  findProductByKeywoard,
 } = require("./product.repository");
 
 const getAllProduct = async () => {
@@ -26,6 +27,14 @@ const getProductById = async (id) => {
   }
 
   return product;
+};
+
+const getProductByCategory = async (categoryName) => {
+  const products = await findProductByCategory(categoryName);
+
+  if (!products) throw Error("Product not found");
+
+  return products;
 };
 
 const searchProducts = async (query) => {
@@ -65,6 +74,7 @@ const deleteProductById = async (id) => {
 module.exports = {
   getAllProduct,
   getProductById,
+  getProductByCategory,
   searchProducts,
   createProduct,
   updateProductById,
