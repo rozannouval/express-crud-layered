@@ -62,6 +62,8 @@ const insertProduct = async (productData) => {
       description: productData.description,
       price: productData.price,
       image: productData.image,
+      stock: productData.stock,
+      category: productData.category,
     },
   });
 
@@ -78,6 +80,8 @@ const editProduct = async (id, productData) => {
       description: productData.description,
       price: productData.price,
       image: productData.image,
+      stock: productData.stock,
+      category: productData.category,
     },
   });
 
